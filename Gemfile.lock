@@ -125,7 +125,7 @@ GEM
       hitimes
     trenni (3.6.0)
       rake-compiler
-    utopia (2.5.2)
+    utopia (2.5.1)
       concurrent-ruby (~> 1.0)
       http-accept (~> 1.6)
       mail (~> 2.6)
