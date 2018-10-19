@@ -4,9 +4,9 @@
 	//<![CDATA[
 		var src = stream.src;
 		
-		setInterval(function() {
+		stream.onload = function() {
 			stream.src = src + "?" + Date.now();
-		}, 250);
+		}
 	//]]>
 	</script>
 </content:page>
