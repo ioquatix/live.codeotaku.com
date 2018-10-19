@@ -10,6 +10,8 @@ gem "bundler"
 
 gem "rack-freeze", "~> 1.2"
 
+gem "async-process"
+
 group :development do
 	# For `rake server`:
 	gem "guard-falcon", require: false

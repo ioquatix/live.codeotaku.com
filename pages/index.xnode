@@ -1,0 +1,8 @@
+<content:page class="front">
+	<content:heading>Streamy</content:heading>
+	
+	<video autoplay>
+		<source src="stream.webm" type="video/webm"/>
+		Your browser does not support streaming video.
+	</video>
+</content:page>
