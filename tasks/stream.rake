@@ -1,6 +1,6 @@
 
 namespace :stream do
-	task :local do
+	task :x11 do
 		require 'fileutils'
 		
 		next_path = File.expand_path("../public/next.jpg", __dir__)
@@ -11,6 +11,34 @@ namespace :stream do
 			FileUtils.mv(next_path, output_path)
 			
 			sleep(1.0/4.0)
+		end
+	end
+	
+	task :darwin do
+		require 'async'
+		require 'async/http/internet'
+		require 'async/http/body/file'
+		
+		id = ENV['STREAM_ID']
+		password = ENV['STREAM_PASSWORD']
+		
+		Async.run do |task|
+			internet = Async::HTTP::Internet.new
+			output_path = File.expand_path("capture.jpg", __dir__)
+			
+			while true
+				system("screencapture", "-C", "-x", output_path)
+				
+				response = internet.post("http://localhost:9292/stream/#{id}/upload", {'password' => password}, Async::HTTP::Body::File.open(output_path))
+				
+				unless response.success?
+					abort "Failed to upload: #{response.status}"
+				end
+				
+				response.finish
+				
+				task.sleep(1.0)
+			end
 		end
 	end
 end

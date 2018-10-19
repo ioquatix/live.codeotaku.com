@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<?r response.cache! ?>
+		<?r response.do_not_cache! ?>
 		
 		<?r if title = self[:title] ?>
 			<title>#{title.gsub(/<.*?>/, "")} - Live.io</title>

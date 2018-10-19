@@ -1,5 +1,5 @@
 <content:page class="front">
-	<img id="stream" src="stream.jpg" style="max-width: 100%"/>
+	<img id="stream" src="latest.jpeg" style="max-width: 100%"/>
 	<script>
 	//<![CDATA[
 		var src = stream.src;

@@ -1,0 +1,9 @@
+<content:page class="front">
+	<content:heading>Welcome to Live...</content:heading>
+	
+	<h2>Recently Updated</h2>
+	
+	<?r controller[:streams].each do |stream| ?>
+		<a href="/stream/#{stream.id}/index"><img class="preview" src="/stream/#{stream.id}/latest.jpeg" /></a>
+	<?r end ?>
+</content:page>

@@ -10,9 +10,11 @@ gem "bundler"
 
 gem "rack-freeze", "~> 1.2"
 
-gem "async-process"
+gem "relaxo-model"
+gem "bcrypt"
 
 group :development do
+	gem "falcon", "~> 0.18.14"
 	# For `rake server`:
 	gem "guard-falcon", require: false
 	gem 'guard-rspec', require: false
