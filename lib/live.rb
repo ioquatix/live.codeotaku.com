@@ -1,2 +1,2 @@
 
-require_relative 'Live/stream'
+require_relative 'live/stream'
