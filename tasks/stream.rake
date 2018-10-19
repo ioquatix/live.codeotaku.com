@@ -24,8 +24,8 @@ namespace :stream do
 		
 		Async.run do |task|
 			internet = Async::HTTP::Internet.new
-			capture_path = File.expand_path("capture.png", __dir__)
-			output_path = File.expand_path("output.jpg", __dir__)
+			capture_path = File.expand_path("/tmp/live-capture.png", __dir__)
+			output_path = File.expand_path("/tmp/live-output.jpg", __dir__)
 			
 			while true
 				system("screencapture", "-C", "-x", capture_path)
