@@ -19,15 +19,15 @@ class VideoStream < Async::HTTP::Body::Readable
 			"ffmpeg",
 			"-f", "x11grab",
 			"-video_size", "3840x2160",
-			"-framerate", "10",
+			# "-video_size", "1920x1080",
+			# "-video_size", "400x300",
+			"-framerate", "30",
 			"-i", ENV['DISPLAY'],
 			"-pix_fmt", "yuv420p",
 			"-vf", "scale=1920:-1",
-			# "-threads", "4",
+			"-threads", "0",
 			*args,
-			"-b:v", "1M",
-			# "-bufsize", "4000K",
-			# "-g", "10",
+			"-g", "10",
 			"-preset", "ultrafast",
 			"pipe:1",
 		]
@@ -44,7 +44,7 @@ class VideoStream < Async::HTTP::Body::Readable
 	
 	def read
 		if @output
-			@output.readpartial(1024*1024)
+			@output.readpartial(1024*1024*32)
 		end
 	end
 end
@@ -54,6 +54,10 @@ class WebMStream < VideoStream
 		super(
 			"-f", "webm",
 			"-c:v", "libvpx-vp9",
+			"-speed", "4",
+			"-tile-columns", "6",
+			"-movflags", "faststart",
+			"-b:v", "1M",
 		)
 	end
 end
@@ -63,18 +67,42 @@ class MP4Stream < VideoStream
 		super(
 			"-f", "mp4",
 			"-c:v", "libx264",
+			"-x264-params", "keyint=10:scenecut=0",
 			"-movflags", "faststart+frag_keyframe+empty_moov",
-			# "-profile:v", "main",
-			"-profile:v", "baseline",
-			"-level", "3.0",
+			"-profile:v", "main",
+		)
+	end
+end
+
+class MOVStream < VideoStream
+	def command
+		super(
+			"-f", "mov",
+			"-c:v", "libx264",
+			"-x264-params", "keyint=10:scenecut=0",
+			"-movflags", "faststart+frag_keyframe+empty_moov",
+			"-profile:v", "main",
 		)
 	end
 end
 
 on "stream.webm" do
-	succeed! body: WebMStream.new, headers: {'content-type' => 'video/webm', 'cache-control' => 'no-cache'}
+	succeed! body: WebMStream.new, headers: {'content-type' => 'video/webm'}
 end
 
-on "stream.mp4" do
-	succeed! body: MP4Stream.new, headers: {'content-type' => 'video/mp4', 'cache-control' => 'no-cache'}
+on "stream.mp4" do |request|
+	if range = request.env['HTTP_RANGE']
+		pp range
+		
+		succeed! status: 206, content: "\0\0", headers: {
+			'content-type' => 'video/mp4',
+			'content-range' => 'bytes 0-1/1000000',
+		}
+	end
+	
+	succeed! body: MP4Stream.new, headers: {'content-type' => 'video/mp4'}
+end
+
+on "stream.mov" do
+	succeed! body: MOVStream.new, headers: {'content-type' => 'video/quicktime'}
 end
