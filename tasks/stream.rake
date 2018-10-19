@@ -24,10 +24,12 @@ namespace :stream do
 		
 		Async.run do |task|
 			internet = Async::HTTP::Internet.new
-			output_path = File.expand_path("capture.jpg", __dir__)
+			capture_path = File.expand_path("capture.png", __dir__)
+			output_path = File.expand_path("output.jpg", __dir__)
 			
 			while true
-				system("screencapture", "-C", "-x", output_path)
+				system("screencapture", "-C", "-x", capture_path)
+				system("convert", "-resize", "50%", capture_path, output_path)
 				
 				response = internet.post("https://live.codeotaku.com/stream/#{id}/upload", {'password' => password}, Async::HTTP::Body::File.open(output_path))
 				
