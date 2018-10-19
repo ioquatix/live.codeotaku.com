@@ -21,7 +21,7 @@ use Rack::Sendfile
 use Utopia::ContentLength
 
 use Utopia::Redirection::Rewrite,
-	'/' => '/index'
+	'/' => '/welcome/index'
 
 use Utopia::Redirection::DirectoryIndex
 
