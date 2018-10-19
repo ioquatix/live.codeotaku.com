@@ -7,6 +7,9 @@
 		stream.onload = function() {
 			stream.src = src + "?" + Date.now();
 		}
+		
+		// Ensure we start the onload loop. Maybe this should be a timer?
+		stream.onload();
 	//]]>
 	</script>
 </content:page>
