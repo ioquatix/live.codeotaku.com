@@ -19,8 +19,8 @@ namespace :stream do
 		require 'async/http/internet'
 		require 'async/http/body/file'
 		
-		id = ENV['STREAM_ID']
-		password = ENV['STREAM_PASSWORD']
+		id = ENV['ID']
+		password = ENV['PASSWORD']
 		
 		Async.run do |task|
 			internet = Async::HTTP::Internet.new
@@ -29,7 +29,7 @@ namespace :stream do
 			while true
 				system("screencapture", "-C", "-x", output_path)
 				
-				response = internet.post("http://localhost:9292/stream/#{id}/upload", {'password' => password}, Async::HTTP::Body::File.open(output_path))
+				response = internet.post("https://live.codeotaku.com/stream/#{id}/upload", {'password' => password}, Async::HTTP::Body::File.open(output_path))
 				
 				unless response.success?
 					abort "Failed to upload: #{response.status}"
