@@ -4,9 +4,9 @@
 		<?r response.cache! ?>
 		
 		<?r if title = self[:title] ?>
-			<title>#{title.gsub(/<.*?>/, "")} - Utopia</title>
+			<title>#{title.gsub(/<.*?>/, "")} - Streamy</title>
 		<?r else ?>
-			<title>Utopia</title>
+			<title>Streamy</title>
 		<?r end ?>
 		
 		<base href="#{first.node.uri_path}"/>
@@ -19,12 +19,6 @@
 	</head>
 
 	<body class="#{attributes[:class]}">
-		<header>
-			<img src="/_static/utopia.svg" />
-		</header>
-
-		<div id="page">
-			<utopia:content/>
-		</div>
+		<utopia:content/>
 	</body>
 </html>
