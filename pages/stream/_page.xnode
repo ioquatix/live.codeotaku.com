@@ -4,9 +4,9 @@
 		<?r response.do_not_cache! ?>
 		
 		<?r if title = self[:title] ?>
-			<title>#{title.gsub(/<.*?>/, "")} - Live.io</title>
+			<title>#{title.gsub(/<.*?>/, "")} - Live Stream</title>
 		<?r else ?>
-			<title>Live.io</title>
+			<title>Live Stream</title>
 		<?r end ?>
 		
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
