@@ -3,7 +3,40 @@
 	
 	<h2>Recently Updated</h2>
 	
-	<?r controller[:streams].each do |stream| ?>
-		<a href="/stream/#{stream.id}/index"><img class="preview" src="/stream/#{stream.id}/latest.jpeg" /></a>
-	<?r end ?>
+	<style>
+		.stream.preview {
+			text-align: center;
+		}
+		
+		.stream.preview a {
+			display: block;
+			
+		}
+		
+		.stream.preview small {
+			display: block;
+		}
+		
+		.stream.preview img.thumbnail {
+			max-width: 12rem;
+			max-height: 12rem;
+			
+			margin: 1rem;
+			padding: 1rem;
+			
+			box-shadow: 1rem 1rem 1rem #ccc;
+		}
+	</style>
+	
+	<section class="streams">
+		<?r controller[:streams].each do |stream| ?>
+		<div class="stream preview">
+			<a href="/stream/#{stream.id}/index"><img class="thumbnail" src="/stream/#{stream.id}/latest.jpeg" /></a>
+			
+			<?r if path = stream.latest_path and File.exist?(path) ?>
+			<small>Last updated: #{((Time.now - File.mtime(path)) / 3600).round(1)} hours ago</small>
+			<?r end ?>
+		</div>
+		<?r end ?>
+	</section>
 </content:page>
