@@ -203,13 +203,3 @@ form fieldset textarea {
 form fieldset.footer {
 	text-align: right;
 }
-
-img.preview {
-	max-width: 12rem;
-	max-height: 12rem;
-	
-	margin: 1rem;
-	padding: 1rem;
-	
-	box-shadow: 1rem 1rem 1rem #ccc;
-}
