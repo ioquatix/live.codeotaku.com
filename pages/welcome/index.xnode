@@ -1,7 +1,5 @@
 <content:page class="front">
-	<content:heading>Welcome to Live...</content:heading>
-	
-	<h2>Recently Updated</h2>
+	<content:heading>Recently Updated</content:heading>
 	
 	<style>
 		.stream.preview {

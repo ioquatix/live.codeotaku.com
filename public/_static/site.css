@@ -35,6 +35,10 @@ body {
 	background-color: #fafafa;
 }
 
+body.stream {
+	background-color: #000;
+}
+
 body > header {
 	margin: 1rem 0 1rem 0;
 	

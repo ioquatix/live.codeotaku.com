@@ -1,4 +1,4 @@
-<content:page class="front">
+<content:page class="stream">
 	<img id="stream" src="latest.jpeg" style="max-width: 100%"/>
 	<script>
 	//<![CDATA[
